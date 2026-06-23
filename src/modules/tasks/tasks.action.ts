@@ -1,9 +1,9 @@
-import { TaskWhereInput } from "generated/prisma/models";
+import { type TaskWhereInput } from "generated/prisma/models";
 import { HTTPException } from "hono/http-exception";
 
 import { prisma } from "#core/database/prisma";
 
-import { CreateTaskInput, UpdateTaskInput } from "./tasks.schema";
+import { type CreateTaskInput, type UpdateTaskInput } from "./tasks.schema";
 
 export async function getById(id: string) {
     return prisma.task.findUnique({ where: { id } });

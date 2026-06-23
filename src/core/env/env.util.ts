@@ -1,4 +1,4 @@
-import z, { ZodType } from "zod";
+import z, { type ZodType } from "zod";
 
 export function createEnv<T>(schema: ZodType<T>, runtime = process.env): T {
     const normalized = Object.fromEntries(

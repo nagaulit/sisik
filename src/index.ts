@@ -1,20 +1,15 @@
-import { HonoLogLayerVariables } from "@loglayer/hono";
-import { Hono } from "hono";
+import { serve } from "@hono/node-server";
 
-import { loggerMiddleware } from "#core/logger/logger.middleware.js";
-import { env } from "#env";
-import tasksRouter from "#modules/tasks";
+import { logger } from "#core/logger/logger.js";
 
-const app = new Hono<{ Variables: HonoLogLayerVariables }>();
+import app from "./app";
 
-app.use(loggerMiddleware);
-
-app.get("/", (c) => {
-    console.log(env.APP_URL);
-    c.var.logger.info("Hello from route!");
-    return c.text("Hello Hono!");
-});
-
-app.route("/", tasksRouter);
-
-export default app;
+serve(
+    {
+        fetch: app.fetch,
+        port: 3000,
+    },
+    (info) => {
+        logger.info(`Server is running on http://localhost:${info.port}`);
+    },
+);

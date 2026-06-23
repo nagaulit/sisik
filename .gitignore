@@ -3,4 +3,8 @@
 # deps
 node_modules/
 
+# build artifact
+dist/
+
+# prisma
 /generated/prisma

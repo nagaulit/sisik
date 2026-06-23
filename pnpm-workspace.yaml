@@ -1,0 +1,6 @@
+allowBuilds:
+    "@prisma/engines": true
+    esbuild: true
+    prisma: true
+minimumReleaseAgeExclude:
+    - hono@4.12.27
