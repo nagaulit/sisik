@@ -1,5 +1,5 @@
 import createApp from "#core/app/create-app.js";
-import tasksRouter from "#modules/tasks/tasks.router.js";
+import tasksRouter from "#modules/tasks/tasks.routes.js";
 
 const app = createApp();
 
@@ -8,6 +8,10 @@ app.get("/", (c) => {
     return c.text("Hello Hono!");
 });
 
-app.route("/", tasksRouter);
+const routes = [tasksRouter] as const;
+
+routes.forEach((r) => app.route("/", r));
+
+export type AppType = (typeof routes)[number];
 
 export default app;
