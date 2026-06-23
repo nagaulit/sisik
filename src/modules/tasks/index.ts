@@ -1,12 +1,12 @@
 import { zValidator } from "@hono/zod-validator";
-import { Hono } from "hono";
 
+import { createHono } from "#core/create-hono.js";
 import { searchSchema } from "#modules/common/schema/search.schema.js";
 
 import { create, getByIdOrThrow, list, remove, update } from "./tasks.action";
 import { createTaskSchema, updateTaskSchema } from "./tasks.schema";
 
-const tasksRouter = new Hono().basePath("/tasks");
+const tasksRouter = createHono().basePath("/tasks");
 
 tasksRouter.post("/", zValidator("json", createTaskSchema), async (c) => {
     const data = c.req.valid("json");

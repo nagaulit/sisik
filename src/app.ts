@@ -1,11 +1,9 @@
-import { type HonoLogLayerVariables } from "@loglayer/hono";
-import { Hono } from "hono";
-
+import { createHono } from "#core/create-hono.js";
 import { loggerMiddleware } from "#core/logger/logger.middleware.js";
 import { env } from "#env";
 import tasksRouter from "#modules/tasks";
 
-const app = new Hono<{ Variables: HonoLogLayerVariables }>();
+const app = createHono();
 
 app.use(loggerMiddleware);
 
