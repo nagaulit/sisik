@@ -2,6 +2,7 @@
     "name": "sisik",
     "version": "0.0.1",
     "private": true,
+    "type": "module",
     "imports": {
         "#env": "./src/config/env.config.ts",
         "#config/*": "./src/config/*",
@@ -17,12 +18,18 @@
         "fmt:check": "oxfmt --check"
     },
     "dependencies": {
+        "@prisma/adapter-pg": "^7.8.0",
+        "@prisma/client": "^7.8.0",
+        "dotenv": "^17.4.2",
         "hono": "^4.12.27",
+        "pg": "^8.22.0",
         "zod": "^4.4.3"
     },
     "devDependencies": {
         "@types/bun": "latest",
+        "@types/pg": "^8.20.0",
         "oxfmt": "^0.56.0",
-        "oxlint": "^1.71.0"
+        "oxlint": "^1.71.0",
+        "prisma": "^7.8.0"
     }
 }
