@@ -19,10 +19,16 @@
     },
     "dependencies": {
         "@hono/zod-validator": "^0.8.0",
+        "@loglayer/hono": "^2.3.0",
+        "@loglayer/transport-pino": "^3.2.0",
+        "@loglayer/transport-simple-pretty-terminal": "^3.2.0",
         "@prisma/adapter-pg": "^7.8.0",
         "@prisma/client": "^7.8.0",
         "hono": "^4.12.27",
+        "loglayer": "^9.3.0",
         "pg": "^8.22.0",
+        "pino": "^10.3.1",
+        "serialize-error": "^13.0.1",
         "zod": "^4.4.3"
     },
     "devDependencies": {
