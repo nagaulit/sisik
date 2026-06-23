@@ -20,10 +20,7 @@ export async function getByIdOrThrow(id: string) {
 }
 
 export async function list(options?: { where?: TaskWhereInput; take?: number; skip?: number }) {
-    return prisma.$transaction([
-        prisma.task.findMany({ ...options }),
-        prisma.task.count({ ...options }),
-    ]);
+    return prisma.$transaction([prisma.task.findMany({ ...options }), prisma.task.count()]);
 }
 
 export async function create(data: CreateTaskInput) {

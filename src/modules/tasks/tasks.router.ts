@@ -1,5 +1,7 @@
 import { searchSchema } from "#common/schema/search.schema.js";
 import { createRouter } from "#core/app/create-app.js";
+import { createListResult } from "#core/db/list.js";
+import { paginate } from "#core/db/pagination.js";
 import { validator } from "#core/validation/validator.js";
 
 import { create, getByIdOrThrow, list, remove, update } from "./tasks.action";
@@ -17,7 +19,9 @@ tasksRouter.post("/", validator("json", createTaskSchema), async (c) => {
 
 tasksRouter.get("/", validator("query", searchSchema), async (c) => {
     const query = c.req.valid("query");
-    const tasks = await list({
+    const pagination = paginate(query);
+
+    const [data, total] = await list({
         where: query.q
             ? {
                   title: {
@@ -25,11 +29,10 @@ tasksRouter.get("/", validator("query", searchSchema), async (c) => {
                   },
               }
             : undefined,
-        skip: (query.page - 1) * query.limit,
-        take: query.limit,
+        ...pagination,
     });
 
-    return c.json(tasks);
+    return c.json(createListResult(data, total, query.page, query.limit));
 });
 
 tasksRouter.get("/:id", async (c) => {
