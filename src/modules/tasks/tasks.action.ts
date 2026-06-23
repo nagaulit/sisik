@@ -1,6 +1,6 @@
 import { type TaskWhereInput } from "generated/prisma/models";
 
-import { prisma } from "#core/database/prisma";
+import { prisma } from "#core/db/prisma.js";
 import { NotFoundError } from "#core/errors/not-found.error.js";
 
 const resourceSlug = "tasks";

@@ -1,4 +1,4 @@
-import { prisma } from "#core/database/prisma.js";
+import { prisma } from "#core/db/prisma.js";
 
 import type { MiddlewareHandler } from "hono/types";
 

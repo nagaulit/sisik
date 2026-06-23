@@ -1,10 +1,10 @@
 import { AppError } from "./app.error";
 
-import type { AppVariables } from "#core/context/context.js";
+import type { AppBindings } from "#core/app/app.type.js";
 import type { ErrorHandler } from "hono";
 import type { ContentfulStatusCode } from "hono/utils/http-status";
 
-export const errorHandler: ErrorHandler<{ Variables: AppVariables }> = (err, c) => {
+export const errorHandler: ErrorHandler<AppBindings> = (err, c) => {
     if (err instanceof AppError) {
         c.var.logger.withMetadata(err).error(err.message);
 

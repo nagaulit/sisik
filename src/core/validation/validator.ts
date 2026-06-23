@@ -1,6 +1,6 @@
 import { zValidator } from "@hono/zod-validator";
 
-import { BadRequestError } from "./errors";
+import { BadRequestError } from "../errors";
 
 import type { ValidationTargets } from "hono";
 import type z from "zod";

@@ -1,11 +1,11 @@
-import { createHono } from "#core/app/create-app.js";
-import { validator } from "#core/validator.js";
-import { searchSchema } from "#modules/common/schema/search.schema.js";
+import { searchSchema } from "#common/schema/search.schema.js";
+import { createRouter } from "#core/app/create-app.js";
+import { validator } from "#core/validation/validator.js";
 
 import { create, getByIdOrThrow, list, remove, update } from "./tasks.action";
 import { createTaskSchema, updateTaskSchema } from "./tasks.schema";
 
-const tasksRouter = createHono().basePath("/tasks");
+const tasksRouter = createRouter().basePath("/tasks");
 
 tasksRouter.post("/", validator("json", createTaskSchema), async (c) => {
     const data = c.req.valid("json");
