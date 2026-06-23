@@ -1,6 +1,5 @@
-import { zValidator } from "@hono/zod-validator";
-
 import { createHono } from "#core/create-hono.js";
+import { validator } from "#core/validator.js";
 import { searchSchema } from "#modules/common/schema/search.schema.js";
 
 import { create, getByIdOrThrow, list, remove, update } from "./tasks.action";
@@ -8,7 +7,7 @@ import { createTaskSchema, updateTaskSchema } from "./tasks.schema";
 
 const tasksRouter = createHono().basePath("/tasks");
 
-tasksRouter.post("/", zValidator("json", createTaskSchema), async (c) => {
+tasksRouter.post("/", validator("json", createTaskSchema), async (c) => {
     const data = c.req.valid("json");
 
     const task = await create(data);
@@ -16,7 +15,7 @@ tasksRouter.post("/", zValidator("json", createTaskSchema), async (c) => {
     return c.json(task, 201);
 });
 
-tasksRouter.get("/", zValidator("query", searchSchema), async (c) => {
+tasksRouter.get("/", validator("query", searchSchema), async (c) => {
     const query = c.req.valid("query");
     const tasks = await list({
         where: query.q
@@ -41,7 +40,7 @@ tasksRouter.get("/:id", async (c) => {
     return c.json(task);
 });
 
-tasksRouter.patch("/:id", zValidator("json", updateTaskSchema), async (c) => {
+tasksRouter.patch("/:id", validator("json", updateTaskSchema), async (c) => {
     const id = c.req.param("id");
     const data = c.req.valid("json");
 

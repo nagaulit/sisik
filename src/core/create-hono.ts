@@ -2,4 +2,6 @@ import { Hono } from "hono";
 
 import type { HonoLogLayerVariables } from "@loglayer/hono";
 
-export const createHono = () => new Hono<{ Variables: HonoLogLayerVariables }>();
+export type AppType = { Variables: HonoLogLayerVariables };
+
+export const createHono = () => new Hono<AppType>();

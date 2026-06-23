@@ -1,7 +1,9 @@
 import { type TaskWhereInput } from "generated/prisma/models";
-import { HTTPException } from "hono/http-exception";
 
 import { prisma } from "#core/database/prisma";
+import { NotFoundError } from "#core/errors/not-found.error.js";
+
+const resourceSlug = "tasks";
 
 import { type CreateTaskInput, type UpdateTaskInput } from "./tasks.schema";
 
@@ -12,7 +14,7 @@ export async function getById(id: string) {
 export async function getByIdOrThrow(id: string) {
     const task = await getById(id);
 
-    if (!task) throw new HTTPException(404);
+    if (!task) throw new NotFoundError(resourceSlug);
 
     return task;
 }

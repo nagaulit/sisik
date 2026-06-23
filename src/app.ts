@@ -1,14 +1,15 @@
 import { createHono } from "#core/create-hono.js";
+import { errorHandler } from "#core/errors/error.handler.js";
 import { loggerMiddleware } from "#core/logger/logger.middleware.js";
-import { env } from "#env";
 import tasksRouter from "#modules/tasks";
 
 const app = createHono();
 
 app.use(loggerMiddleware);
 
+app.onError(errorHandler);
+
 app.get("/", (c) => {
-    console.log(env.APP_URL);
     c.var.logger.info("Hello from route!");
     return c.text("Hello Hono!");
 });
