@@ -6,3 +6,9 @@ generator client {
 datasource db {
     provider = "postgresql"
 }
+
+model Task {
+    id    String   @id @default(uuid())
+    title String
+    done  Boolean?
+}
