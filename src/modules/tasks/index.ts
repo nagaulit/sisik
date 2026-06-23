@@ -1,4 +1,4 @@
-import { createHono } from "#core/create-hono.js";
+import { createHono } from "#core/app/create-app.js";
 import { validator } from "#core/validator.js";
 import { searchSchema } from "#modules/common/schema/search.schema.js";
 
