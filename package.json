@@ -2,6 +2,13 @@
     "name": "sisik",
     "version": "0.0.1",
     "private": true,
+    "imports": {
+        "#env": "./src/config/env.config.ts",
+        "#config/*": "./src/config/*",
+        "#core/*": "./src/core/*",
+        "#common/*": "./src/common/*",
+        "#modules/*": "./src/modules/*"
+    },
     "scripts": {
         "dev": "bun run --hot src/index.ts",
         "lint": "oxlint",
@@ -10,7 +17,8 @@
         "fmt:check": "oxfmt --check"
     },
     "dependencies": {
-        "hono": "^4.12.27"
+        "hono": "^4.12.27",
+        "zod": "^4.4.3"
     },
     "devDependencies": {
         "@types/bun": "latest",
