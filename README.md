@@ -1,13 +1,23 @@
-To install dependencies:
+# Sisik
+
+Meta framework built with hono
+
+## To run `docker` services
 
 ```sh
-bun install
+docker compose up -d --remove-orphans
 ```
 
-To run:
+## To install dependencies
 
 ```sh
-bun run dev
+pnpm install
 ```
 
-open http://localhost:3000
+## To run
+
+```sh
+pnpm dev
+```
+
+open <http://localhost:3000>
