@@ -1,0 +1,59 @@
+{
+    "name": "@totis/api",
+    "version": "0.0.1",
+    "private": true,
+    "type": "module",
+    "imports": {
+        "#env": "./src/config/env.config.ts",
+        "#config/*": "./src/config/*",
+        "#core/*": "./src/core/*",
+        "#common/*": "./src/common/*",
+        "#modules/*": "./src/modules/*"
+    },
+    "scripts": {
+        "dev": "tsx watch src/index.ts",
+        "build": "tsc",
+        "start": "node dist/index.js",
+        "lint": "oxlint",
+        "lint:fix": "oxlint --fix",
+        "fmt": "oxfmt",
+        "fmt:check": "oxfmt --check",
+        "check": "tsc --noEmit",
+        "db:generate": "prisma generate",
+        "db:migrate-dev": "prisma migrate dev && prisma generate",
+        "db:migrate-reset": "prisma migrate reset ",
+        "db:studio": "prisma studio"
+    },
+    "dependencies": {
+        "@aws-sdk/client-s3": "^3.1075.0",
+        "@aws-sdk/s3-request-presigner": "^3.1075.0",
+        "@better-auth/prisma-adapter": "^1.6.20",
+        "@better-auth/redis-storage": "^1.6.20",
+        "@hono/node-server": "^2.0.6",
+        "@hono/zod-validator": "^0.8.0",
+        "@loglayer/hono": "^2.3.0",
+        "@loglayer/transport-pino": "^3.2.0",
+        "@loglayer/transport-simple-pretty-terminal": "^3.2.0",
+        "@prisma/adapter-pg": "^7.8.0",
+        "@prisma/client": "^7.8.0",
+        "better-auth": "^1.6.20",
+        "dotenv": "^17.4.2",
+        "hono": "^4.12.27",
+        "ioredis": "^5.11.1",
+        "loglayer": "^9.3.0",
+        "pg": "^8.22.0",
+        "pino": "^10.3.1",
+        "serialize-error": "^13.0.1",
+        "sharp": "^0.35.2",
+        "zod": "^4.4.3"
+    },
+    "devDependencies": {
+        "@types/node": "^20.11.17",
+        "@types/pg": "^8.20.0",
+        "oxfmt": "^0.56.0",
+        "oxlint": "^1.71.0",
+        "prisma": "^7.8.0",
+        "tsx": "^4.7.1",
+        "typescript": "^5.8.3"
+    }
+}
