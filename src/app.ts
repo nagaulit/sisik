@@ -1,5 +1,6 @@
 import createApp from "#core/app/create-app.js";
 import { auth } from "#core/auth/auth.js";
+import mediaRoutes from "#modules/media/media.routes.js";
 import tasksRouter from "#modules/tasks/tasks.routes.js";
 
 const app = createApp();
@@ -16,7 +17,7 @@ app.get("/", (c) => {
     });
 });
 
-const routes = [tasksRouter] as const;
+const routes = [mediaRoutes, tasksRouter] as const;
 
 routes.forEach((r) => app.route("/", r));
 
