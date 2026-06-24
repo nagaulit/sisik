@@ -1,3 +1,4 @@
+import "dotenv/config";
 import z, { type ZodType } from "zod";
 
 export function createEnv<T>(schema: ZodType<T>, runtime = process.env): T {

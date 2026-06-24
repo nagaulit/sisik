@@ -12,8 +12,14 @@ const envSchema = z
         APP_URL: z.url().default("http://localhost:3000"),
         APP_NAME: z.string().default("Sisik"),
 
+        // better-auth
+        AUTH_SECRET: z.string().min(32),
+
         // db
         POSTGRES_URL: z.url().default("postgresql://postgres:password@localhost:5432/sisik"),
+
+        // db
+        REDIS_URL: z.url().default("localhost:6379"),
 
         // s3
         S3_ENDPOINT: z.url().default("http://localhost:9000"),
