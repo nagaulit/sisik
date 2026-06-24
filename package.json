@@ -19,8 +19,9 @@
         "fmt": "oxfmt",
         "fmt:check": "oxfmt --check",
         "check": "tsc --noEmit",
-        "db:migrate-dev": "prisma migrate dev",
-        "db:migrate-reset": "prisma migrate reset",
+        "db:generate": "prisma generate",
+        "db:migrate-dev": "prisma migrate dev && prisma generate",
+        "db:migrate-reset": "prisma migrate reset ",
         "db:studio": "prisma studio"
     },
     "dependencies": {
@@ -47,7 +48,6 @@
         "zod": "^4.4.3"
     },
     "devDependencies": {
-        "@types/bun": "latest",
         "@types/node": "^20.11.17",
         "@types/pg": "^8.20.0",
         "oxfmt": "^0.56.0",

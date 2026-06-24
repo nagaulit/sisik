@@ -1,5 +1,8 @@
+import { getConnInfo } from "hono/cloudflare-workers";
+
 import { searchSchema } from "#common/schema/search.schema.js";
 import { createRouter } from "#core/app/create-app.js";
+import { AuditAction, log as audit } from "#core/audit";
 import { createListResult } from "#core/db/list.js";
 import { paginate } from "#core/db/pagination.js";
 import { validator } from "#core/validation/validator.js";
@@ -11,8 +14,20 @@ const tasksRouter = createRouter()
     .basePath("/tasks")
     .post("/", validator("json", createTaskSchema), async (c) => {
         const data = c.req.valid("json");
+        const { remote } = getConnInfo(c);
+        const userAgent = c.req.header("User-Agent");
 
         const task = await create(data);
+
+        await audit({
+            action: AuditAction.Create,
+            resource: "task",
+            resourceId: task.id,
+            newValue: task,
+            userId: c.var.user?.id,
+            ip: remote.address,
+            userAgent,
+        });
 
         return c.json(task, 201);
     })
@@ -34,9 +49,7 @@ const tasksRouter = createRouter()
         return c.json(createListResult(data, total, query.page, query.limit));
     })
     .get("/:id", async (c) => {
-        const id = c.req.param("id");
-
-        const task = await getByIdOrThrow(id);
+        const task = await getByIdOrThrow(c.req.param("id"));
 
         return c.json(task);
     })
@@ -44,18 +57,46 @@ const tasksRouter = createRouter()
         const id = c.req.param("id");
         const data = c.req.valid("json");
 
-        await getByIdOrThrow(id);
-        const updatedTask = await update(id, data);
+        const { remote } = getConnInfo(c);
+        const userAgent = c.req.header("User-Agent");
 
-        return c.json(updatedTask);
+        const before = await getByIdOrThrow(id);
+        const after = await update(id, data);
+
+        await audit({
+            action: AuditAction.Update,
+            resource: "task",
+            resourceId: id,
+            oldValue: before,
+            newValue: after,
+            userId: c.var.user?.id,
+            ip: remote.address,
+            userAgent,
+        });
+
+        return c.json(after);
     })
     .delete("/:id", async (c) => {
         const id = c.req.param("id");
 
-        await getByIdOrThrow(id);
+        const { remote } = getConnInfo(c);
+        const userAgent = c.req.header("User-Agent");
+
+        const task = await getByIdOrThrow(id);
+
         await remove(id);
 
-        return c.status(204);
+        await audit({
+            action: AuditAction.Delete,
+            resource: "task",
+            resourceId: id,
+            oldValue: task,
+            userId: c.var.user?.id,
+            ip: remote.address,
+            userAgent,
+        });
+
+        return c.body(null, 204);
     });
 
 export default tasksRouter;

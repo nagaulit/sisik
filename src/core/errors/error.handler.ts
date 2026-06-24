@@ -18,6 +18,7 @@ export const errorHandler: ErrorHandler<AppBindings> = (err, c) => {
         );
     }
 
+    console.error(err);
     c.var.logger.withMetadata(err).error("Unhandled exception");
 
     return c.json(

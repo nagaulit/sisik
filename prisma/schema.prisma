@@ -28,16 +28,38 @@ model Task {
     done  Boolean?
 }
 
+model AuditLog {
+    id String @id @default(cuid())
+
+    action     String
+    resource   String
+    resourceId String?
+
+    userId         String?
+    organizationId String?
+
+    ip        String?
+    userAgent String?
+
+    oldValue Json?
+    newValue Json?
+
+    createdAt DateTime @default(now())
+
+    user User? @relation(fields: [userId], references: [id])
+}
+
 model User {
-    id            String    @id
+    id            String     @id
     name          String
     email         String
-    emailVerified Boolean   @default(false)
+    emailVerified Boolean    @default(false)
     image         String?
-    createdAt     DateTime  @default(now())
-    updatedAt     DateTime  @updatedAt
+    createdAt     DateTime   @default(now())
+    updatedAt     DateTime   @updatedAt
     sessions      Session[]
     accounts      Account[]
+    auditLogs     AuditLog[]
 
     @@unique([email])
     @@map("user")
